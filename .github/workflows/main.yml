@@ -34,12 +34,12 @@ jobs:
       # 5. Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} .
-          docker tag ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} \
-                     ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+          docker build -t harshithabuchupalli/myapp:${{ github.sha }} .
+          docker tag harshithabuchupalli/myapp:${{ github.sha }} \
+                     harshithabuchupalli/myapp:latest
 
       # 6. Push Docker image
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+          docker push harshithabuchupalli/myapp:${{ github.sha }}
+          docker push harshithabuchupalli/myapp:latest
