@@ -43,3 +43,19 @@ jobs:
         run: |
           docker push harshithabuchupalli/myapp:${{ github.sha }}
           docker push harshithabuchupalli/myapp:latest
+          
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Updating Kubernetes deployment..."
+
+            export KUBECONFIG=/home/ubuntu/.kube/config
+
+            kubectl set image deployment/myfirstapp \
+              myfirstapp=harshithabuchupalli/myapp:latest
+
+            kubectl rollout status deployment/myfirstapp
